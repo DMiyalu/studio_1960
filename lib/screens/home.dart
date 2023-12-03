@@ -1,5 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:zoom_tap_animation/zoom_tap_animation.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -9,6 +10,30 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  MouseCursor customCursor = MouseCursor.defer;
+  Widget sliderItem(context) {
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      onHover: (event) {
+        setState(() {
+          customCursor = MouseCursor.defer;
+        });
+      },
+      child: InkWell(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 4),
+          width: MediaQuery.of(context).size.width * .99,
+          child: Image.asset(
+            "assets/images/slide2.jpg",
+            height: MediaQuery.of(context).size.height * .9,
+            width: MediaQuery.of(context).size.width * .99,
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -24,16 +49,7 @@ class _HomeState extends State<Home> {
                 child: CarouselSlider(
                   items: [1, 2]
                       .map(
-                        (e) => Container(
-                          margin: const EdgeInsets.symmetric(horizontal: 4),
-                          width: MediaQuery.of(context).size.width * .99,
-                          child: Image.asset(
-                            "assets/images/slide2.jpg",
-                            height: MediaQuery.of(context).size.height * .9,
-                            width: MediaQuery.of(context).size.width * .99,
-                            fit: BoxFit.cover,
-                          ),
-                        ),
+                        (e) => sliderItem(context),
                       )
                       .toList(),
                   options: CarouselOptions(
