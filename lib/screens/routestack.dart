@@ -19,7 +19,6 @@ class _RouteStackState extends State<RouteStack>
   @override
   void initState() {
     controller = PageController(initialPage: _currentIndex);
-    // BlocProvider.of<CatalogCubit>(context).onLoadcatalog();
     super.initState();
   }
 
@@ -65,7 +64,7 @@ class _RouteStackState extends State<RouteStack>
       children: _listScreen,
     );
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       key: _scaffoldKey,
       appBar: appBar(context),
       body: pageView,
@@ -75,18 +74,33 @@ class _RouteStackState extends State<RouteStack>
 
 AppBar appBar(context) {
   return AppBar(
-    leadingWidth: 100,
-    leading: Image.asset(
-      "assets/images/logo-removebg-preview.png",
-      width: 60,
-      fit: BoxFit.cover,
-    ),
-    title: const Text(
-      "Accueil",
-      style: TextStyle(
-        color: Colors.white,
-        fontSize: 16,
+    elevation: 0,
+    backgroundColor: Theme.of(context).colorScheme.onBackground,
+    flexibleSpace: SizedBox(
+      height: 70,
+      width: MediaQuery.of(context).size.width,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 80),
+        child: Flex(
+          direction: Axis.horizontal,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              "assets/images/logo-removebg-preview.png",
+              width: 80,
+              fit: BoxFit.cover,
+            ),
+            const Expanded(child: SizedBox()),
+            Text(
+              "Accueil",
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+                    color: Colors.white60,
+                  ),
+            ),
+          ],
+        ),
       ),
     ),
+    // title: const ,
   );
 }
